@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:project/Screens/drawer.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -65,17 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: 20,
                     ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(
-                          myAudio.metas.title!,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 22.0),
-                        ),
+                    SizedBox(
+                      height: 10.0,
+                      child: Marquee(
+                        fadingEdgeEndFraction: 0.2,
+                        fadingEdgeStartFraction: 0.2,
+                        text: myAudio.metas.title!,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 25),
+                        velocity: 20,
+                        startAfter: Duration.zero,
+                        blankSpace: 100,
                       ),
                     ),
                     const SizedBox(
@@ -126,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       icon: Icon(isPlaying
                                           ? Icons.pause
                                           : Icons.play_arrow),
-                                      iconSize: 50,
+                                      iconSize: 40,
                                     );
                                   }),
                             ),
@@ -137,6 +141,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             icon: const Icon(
                               Icons.skip_next,
+                              size: 40.0,
+                              color: Color.fromARGB(255, 12, 12, 12),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.playlist_add,
                               size: 40.0,
                               color: Color.fromARGB(255, 12, 12, 12),
                             ),

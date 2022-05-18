@@ -34,7 +34,9 @@ dependencies:
     sdk: flutter
   google_fonts: ^2.3.2
   just_audio: ^0.9.21
+  marquee: ^2.2.1
   on_audio_query: ^2.6.0
+  on_audio_room: ^2.2.1+1
   permission_handler: ^9.2.0
 
 dev_dependencies:
