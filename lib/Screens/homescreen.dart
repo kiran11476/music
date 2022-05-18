@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color.fromARGB(159, 0, 0, 0),
+                    Color.fromARGB(177, 0, 0, 0),
                     Color.fromARGB(255, 0, 0, 0)
                   ],
                 ),
@@ -53,7 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Center(
-                        child: SizedBox(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.white, width: 4)),
                           child: QueryArtworkWidget(
                             artworkHeight: 60,
                             artworkWidth: 60,
@@ -66,11 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 25.0,
                       child: Marquee(
                         fadingEdgeEndFraction: 0.2,
                         fadingEdgeStartFraction: 0.2,
