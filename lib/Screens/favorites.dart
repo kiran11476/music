@@ -42,13 +42,15 @@ class _FavScreenState extends State<FavScreen> {
 
                 return ListView.builder(itemBuilder: (context, index) {
                   return ListTile(
-                      leading: QueryArtworkWidget(
-                          id: favoriteSongs![index].id,
-                          type: ArtworkType.AUDIO,
-                          nullArtworkWidget:
-                              const Padding(padding: EdgeInsets.only(top: 5.0)
-                                  // Text(favoriteSongs![index].title),
-                                  )));
+                    leading: QueryArtworkWidget(
+                        id: favoriteSongs![index].id,
+                        type: ArtworkType.AUDIO,
+                        nullArtworkWidget:
+                            const Padding(padding: EdgeInsets.only(top: 5.0)
+                                // Text(favoriteSongs![index].title),
+                                )),
+                    trailing: Icon(Icons.do_not_touch),
+                  );
                 });
               },
               future: _audioroom.queryFavorites(),
