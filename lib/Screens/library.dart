@@ -33,12 +33,8 @@ class _ListScreenState extends State<ListScreen> {
     Permission.storage.request();
     OnAudioQuery play = OnAudioQuery();
     fetchedSong = await play.querySongs();
+//
     for (var item in fetchedSong) {
-      if (item.fileExtension == "mp3") {
-        allSongs.add(item);
-      }
-    }
-    for (var item in allSongs) {
       songs.add(
         Audio.file(
           item.uri.toString(),
@@ -89,6 +85,9 @@ class _ListScreenState extends State<ListScreen> {
               return ListView.builder(
                 itemBuilder: (context, index) => ListTile(
                   onTap: (() {
+                    HomeScreen(
+                      index: index,
+                    );
                     for (var item in allSongs) {
                       songs.add(Audio.file(item.uri.toString(),
                           metas: Metas(id: item.id.toString())));
@@ -104,6 +103,7 @@ class _ListScreenState extends State<ListScreen> {
                           id: item.data![index].id, type: ArtworkType.AUDIO),
                   title: Text(
                     item.data![index].displayNameWOExt,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w500),
                   ),
@@ -124,10 +124,8 @@ class _ListScreenState extends State<ListScreen> {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
             child: ListTile(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
                 // OpenPlayer(allSongs: , index: index)
               },
               tileColor: Colors.white,

@@ -4,9 +4,15 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:project/Screens/drawer.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:project/Screens/library.dart';
+import 'package:on_audio_room/on_audio_room.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  int? index;
+  List<SongModel> fullsongs = [];
+  HomeScreen({Key? key, this.index})
+      : super(
+          key: key,
+        );
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -21,8 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   double _currentSliderValue = 20;
   int _currentSelectedIndex = 0;
+  final OnAudioRoom _audioRoom = OnAudioRoom();
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+
   @override
   Widget build(BuildContext context) {
+    _audioQuery.querySongs().then((value) {
+      widget.fullsongs = value;
+    });
+
     return Scaffold(
         drawer: const Drag(),
         appBar: AppBar(
@@ -33,6 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         body: play.builderCurrent(
             builder: (BuildContext context, Playing? playing) {
           final myAudio = find(songs, playing!.audio.assetAudioPath);
+
+          ;
           return Container(
               width: double.infinity,
               height: double.infinity,
@@ -51,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.only(top: 60),
                       child: Center(
                         child: Container(
                           decoration: BoxDecoration(
@@ -73,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 20,
                     ),
                     SizedBox(
-                      height: 25.0,
+                      height: 30.0,
                       child: Marquee(
                         fadingEdgeEndFraction: 0.2,
                         fadingEdgeStartFraction: 0.2,
@@ -105,7 +120,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              _audioRoom.addTo(
+                                  RoomType.FAVORITES,
+                                  widget.fullsongs[playing.index].getMap
+                                      .toFavoritesEntity());
+                            },
                             icon: const Icon(Icons.favorite),
                             color: Colors.red,
                           ),

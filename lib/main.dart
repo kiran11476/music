@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:on_audio_room/on_audio_room.dart';
 
 import 'package:project/Screens/homescreen.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  await OnAudioRoom().initRoom(); //
   runApp(const MyApp());
 }
 
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
