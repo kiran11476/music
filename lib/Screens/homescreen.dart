@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (BuildContext context, Playing? playing) {
           final myAudio = find(songs, playing!.audio.assetAudioPath);
 
-          ;
           return Container(
               width: double.infinity,
               height: double.infinity,
