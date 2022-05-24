@@ -33,7 +33,7 @@ class _ListScreenState extends State<ListScreen> {
     Permission.storage.request();
     OnAudioQuery play = OnAudioQuery();
     fetchedSong = await play.querySongs();
-//
+
     for (var item in fetchedSong) {
       songs.add(
         Audio.file(
@@ -112,7 +112,10 @@ class _ListScreenState extends State<ListScreen> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  trailing: const Icon(Icons.more_horiz),
+                  trailing: const Icon(
+                    Icons.more_horiz,
+                    color: Colors.white,
+                  ),
                 ),
                 itemCount: item.data!.length,
               );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PlayScreen extends StatelessWidget {
-  const PlayScreen({ Key? key }) : super(key: key);
+  const PlayScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +13,17 @@ class PlayScreen extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color.fromARGB(255, 53, 85, 53),
+            Color.fromARGB(41, 53, 85, 53),
             Color.fromARGB(255, 75, 71, 71)
           ],
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(title: const Text('Playlist'),
-        backgroundColor: Colors.black,),
+        appBar: AppBar(
+          title: const Text('Playlist'),
+          backgroundColor: Colors.black,
+        ),
         body: SafeArea(
           child: SafeArea(
             child: ListView.separated(
@@ -35,20 +37,29 @@ class PlayScreen extends StatelessWidget {
                   child: Container(
                     decoration: const BoxDecoration(),
                     child: ListTile(
-                      title:
-                          Text('Playlist $index', style: const TextStyle(color: Colors.white)),
-                      subtitle: const Text('Sushin shyam',style: TextStyle(color: Colors.white),),
-                      leading: const Icon(Icons.playlist_add,size: 50.0,color: Colors.white,),
+                      title: Text('Playlist $index',
+                          style: const TextStyle(color: Colors.white)),
+                      subtitle: const Text(
+                        'Sushin shyam',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      leading: const Icon(
+                        Icons.playlist_add,
+                        size: 50.0,
+                        color: Colors.white,
+                      ),
+                      trailing: const Icon(
+                        Icons.more_horiz,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 );
               },
             ),
           ),
+        ),
       ),
-      ),
-      
-      
     );
   }
 }

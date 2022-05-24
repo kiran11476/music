@@ -36,7 +36,7 @@ class _FavScreenState extends State<FavScreen> {
             body: FutureBuilder(
               builder: (context, snapshot) {
                 if (snapshot.data == null || snapshot.data == '') {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 favoriteSongs = snapshot.data as List<FavoritesEntity>?;
@@ -46,11 +46,21 @@ class _FavScreenState extends State<FavScreen> {
                     leading: QueryArtworkWidget(
                         id: favoriteSongs![index].id,
                         type: ArtworkType.AUDIO,
-                        nullArtworkWidget:
-                            const Padding(padding: EdgeInsets.only(top: 5.0)
-                                // Text(favoriteSongs![index].title),
-                                )),
-                    trailing: Icon(Icons.do_not_touch),
+                        nullArtworkWidget: const Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          // Text(favoriteSongs![index].title),
+                        )),
+                    trailing: const Icon(Icons.more_vert),
+                    title: Text(
+                      favoriteSongs![index].title,
+                      style: const TextStyle(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      favoriteSongs![index].lastData,
+                      style: const TextStyle(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   );
                 });
               },
