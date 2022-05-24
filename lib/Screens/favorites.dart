@@ -38,6 +38,7 @@ class _FavScreenState extends State<FavScreen> {
                 if (snapshot.data == null || snapshot.data == '') {
                   return Center(child: CircularProgressIndicator());
                 }
+
                 favoriteSongs = snapshot.data as List<FavoritesEntity>?;
 
                 return ListView.builder(itemBuilder: (context, index) {
