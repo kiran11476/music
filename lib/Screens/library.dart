@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project/Screens/drawer.dart';
 import 'package:project/Screens/homescreen.dart';
 import 'package:project/playr.dart';
 
@@ -61,6 +62,7 @@ class _ListScreenState extends State<ListScreen> {
         ),
       ),
       child: Scaffold(
+        drawer: const Drag(),
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -105,7 +107,8 @@ class _ListScreenState extends State<ListScreen> {
                     item.data![index].displayNameWOExt,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500),
+                        color: Color.fromARGB(255, 255, 250, 250),
+                        fontWeight: FontWeight.w500),
                   ),
                   subtitle: Text(
                     "${item.data![index].artist}",
@@ -142,6 +145,7 @@ class _ListScreenState extends State<ListScreen> {
               title: Text(
                 myAudio.metas.title!,
                 style: const TextStyle(color: Color.fromARGB(255, 10, 9, 9)),
+                overflow: TextOverflow.ellipsis,
               ),
               subtitle: Text(
                 myAudio.metas.artist!.toLowerCase(),
@@ -168,7 +172,7 @@ class _ListScreenState extends State<ListScreen> {
                         return IconButton(
                           icon: Icon(
                             isPlaying ? Icons.pause_circle : Icons.play_circle,
-                            size: 43,
+                            size: 45,
                           ),
                           onPressed: () {
                             play.playOrPause();

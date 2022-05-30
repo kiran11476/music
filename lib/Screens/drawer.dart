@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:project/Screens/favorites.dart';
-import 'package:project/Screens/library.dart';
+
 import 'package:project/Screens/playlist.dart';
 
 class Drag extends StatelessWidget {
@@ -33,12 +33,15 @@ class Drag extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ListScreen()));
-              },
-              child: tileList(Icons.library_music, 'Music  library')),
+          // GestureDetector(
+          //     onTap: () {
+          //       Navigator.of(context).push(MaterialPageRoute(
+          //           builder: (context) => const ListScreen()
+          //           )
+          //           );
+          //     },
+          //     child: tileList(Icons.library_music, 'Music  library')
+          //     ),
           GestureDetector(
               onTap: () {
                 Navigator.of(context).push(

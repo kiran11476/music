@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:project/Screens/drawer.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:project/Screens/library.dart';
 import 'package:on_audio_room/on_audio_room.dart';
@@ -37,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     return Scaffold(
-        drawer: const Drag(),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(213, 0, 0, 0),
           title: const Text('Music Player'),
