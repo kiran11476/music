@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -44,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
         body: play.builderCurrent(
             builder: (BuildContext context, Playing? playing) {
           final myAudio = find(songs, playing!.audio.assetAudioPath);
+          bool isFav = false;
+          int? key;
 
           return Container(
               width: double.infinity,
@@ -118,10 +121,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           IconButton(
                             onPressed: () async {
-                              _audioRoom.addTo(
-                                  RoomType.FAVORITES,
-                                  widget.fullsongs[playing.index].getMap
-                                      .toFavoritesEntity());
+                              if (isFav != true) {
+                                _audioRoom.addTo(
+                                    RoomType.FAVORITES,
+                                    widget.fullsongs[playing.index].getMap
+                                        .toFavoritesEntity(),
+                                    ignoreDuplicate: false);
+                              } else {
+                                _audioRoom.deleteFrom(RoomType.FAVORITES, key!);
+                              }
                             },
                             icon: const Icon(Icons.favorite),
                             color: Colors.red,

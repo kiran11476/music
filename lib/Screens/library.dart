@@ -54,13 +54,7 @@ class _ListScreenState extends State<ListScreen> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color.fromARGB(159, 0, 0, 0), Color.fromARGB(255, 0, 0, 0)],
-        ),
-      ),
+      color: Colors.black,
       child: Scaffold(
         drawer: const Drag(),
         backgroundColor: Colors.transparent,

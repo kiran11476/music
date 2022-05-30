@@ -34,35 +34,37 @@ class _FavScreenState extends State<FavScreen> {
               backgroundColor: Colors.black,
             ),
             body: FutureBuilder(
-              builder: (context, snapshot) {
-                if (snapshot.data == null || snapshot.data == '') {
-                  return const Center(child: CircularProgressIndicator());
+              builder: (context, item) {
+                if (item.data == null) {
+                  return const Center(child: Text('no songs'));
                 }
 
-                favoriteSongs = snapshot.data as List<FavoritesEntity>?;
+                favoriteSongs = item.data as List<FavoritesEntity>?;
 
-                return ListView.builder(itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: QueryArtworkWidget(
-                        id: favoriteSongs![index].id,
-                        type: ArtworkType.AUDIO,
-                        nullArtworkWidget: const Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          // Text(favoriteSongs![index].title),
-                        )),
-                    trailing: const Icon(Icons.more_vert),
-                    title: Text(
-                      favoriteSongs![index].title,
-                      style: const TextStyle(color: Colors.white),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Text(
-                      favoriteSongs![index].lastData,
-                      style: const TextStyle(color: Colors.white),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  );
-                });
+                return ListView.builder(
+                    itemCount: favoriteSongs!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: QueryArtworkWidget(
+                            id: favoriteSongs![index].id,
+                            type: ArtworkType.AUDIO,
+                            nullArtworkWidget: const Padding(
+                              padding: EdgeInsets.only(top: 5.0),
+                              // Text(favoriteSongs![index].title),
+                            )),
+                        trailing: const Icon(Icons.more_vert),
+                        title: Text(
+                          favoriteSongs![index].title,
+                          style: const TextStyle(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                          favoriteSongs![index].lastData,
+                          style: const TextStyle(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      );
+                    });
               },
               future: _audioroom.queryFavorites(),
             )));
