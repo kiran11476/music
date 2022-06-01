@@ -1,6 +1,8 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+
 import 'function.dart';
-import 'package:marquee/marquee.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:project/Screens/library.dart';
@@ -26,12 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
-  double _currentSliderValue = 20;
-  int _currentSelectedIndex = 0;
   final OnAudioRoom _audioRoom = OnAudioRoom();
   final OnAudioQuery _audioQuery = OnAudioQuery();
   List<SongModel> songmodel = [];
-
+  bool isFav = false;
   @override
   Widget build(BuildContext context) {
     _audioQuery.querySongs().then((value) {
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: play.builderCurrent(
             builder: (BuildContext context, Playing? playing) {
           final myAudio = find(songs, playing!.audio.assetAudioPath);
-          bool isFav = false;
+
           int? key;
 
           return Container(
@@ -89,34 +89,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      height: 30.0,
-                      child: Marquee(
-                        fadingEdgeEndFraction: 0.2,
-                        fadingEdgeStartFraction: 0.2,
-                        text: myAudio.metas.title!,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 25),
-                        velocity: 20,
-                        startAfter: Duration.zero,
-                        blankSpace: 100,
-                      ),
-                    ),
+
                     const SizedBox(
-                      height: 20.0,
+                      height: 40.0,
+                    ),
+                    play.builderRealtimePlayingInfos(
+                        builder: (context, RealtimePlayingInfos infos) {
+                      return ProgressBar(
+                        timeLabelTextStyle: const TextStyle(
+                            color: Color.fromARGB(255, 230, 230, 230)),
+                        timeLabelType: TimeLabelType.remainingTime,
+                        baseBarColor: const Color.fromARGB(255, 240, 235, 235),
+                        progressBarColor:
+                            const Color.fromARGB(122, 26, 90, 154),
+                        thumbColor: Colors.blue,
+                        barHeight: 4,
+                        thumbRadius: 8,
+                        progress: infos.currentPosition,
+                        total: infos.duration,
+                        onSeek: (slide) {
+                          play.seek(slide);
+                        },
+                      );
+                    }),
+                    const SizedBox(
+                      height: 20,
                     ),
 
-                    // Slider(
-                    //     thumbColor: const Color.fromARGB(231, 255, 255, 255),
-                    //     activeColor: const Color.fromARGB(138, 255, 255, 255),
-                    //     value: _currentSliderValue,
-                    //     max: 100,
-                    //     onChanged: (double value) {
-                    //       setState(() {
-                    //         _currentSliderValue = value;
-                    //       });
                     //     }),
-
                     Container(
                       height: 120,
                       width: double.infinity,
@@ -136,8 +136,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               }
                             },
                             icon: Icon(
-                              isFav ? Icons.favorite : Icons.favorite_outline,
-                              size: 18,
+                              isFav
+                                  ? Icons.favorite_border_outlined
+                                  : Icons.favorite,
+                              size: 30,
                               color: Colors.red,
                             ),
                           ),
