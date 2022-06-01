@@ -27,7 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  assets_audio_player: ^3.0.4+1
+  assets_audio_player: ^3.0.4+3
   audioplayers: ^0.20.1
   cupertino_icons: ^1.0.4
   flutter:
@@ -36,7 +36,7 @@ dependencies:
   google_fonts: ^2.3.2
   just_audio: ^0.9.21
   marquee: ^2.2.1
-  on_audio_query: ^2.6.0
+  on_audio_query: ^2.6.1
   on_audio_room: ^2.2.1+1
   permission_handler: ^9.2.0
 

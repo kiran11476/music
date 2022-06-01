@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'function.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -9,6 +9,7 @@ import 'package:on_audio_room/on_audio_room.dart';
 class HomeScreen extends StatefulWidget {
   int? index;
   List<SongModel> fullsongs = [];
+
   HomeScreen({Key? key, this.index})
       : super(
           key: key,
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentSelectedIndex = 0;
   final OnAudioRoom _audioRoom = OnAudioRoom();
   final OnAudioQuery _audioQuery = OnAudioQuery();
+  List<SongModel> songmodel = [];
 
   @override
   Widget build(BuildContext context) {
@@ -103,16 +105,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    Slider(
-                        thumbColor: const Color.fromARGB(231, 255, 255, 255),
-                        activeColor: const Color.fromARGB(138, 255, 255, 255),
-                        value: _currentSliderValue,
-                        max: 100,
-                        onChanged: (double value) {
-                          setState(() {
-                            _currentSliderValue = value;
-                          });
-                        }),
+
+                    // Slider(
+                    //     thumbColor: const Color.fromARGB(231, 255, 255, 255),
+                    //     activeColor: const Color.fromARGB(138, 255, 255, 255),
+                    //     value: _currentSliderValue,
+                    //     max: 100,
+                    //     onChanged: (double value) {
+                    //       setState(() {
+                    //         _currentSliderValue = value;
+                    //       });
+                    //     }),
+
                     Container(
                       height: 120,
                       width: double.infinity,
@@ -131,8 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _audioRoom.deleteFrom(RoomType.FAVORITES, key!);
                               }
                             },
-                            icon: const Icon(Icons.favorite),
-                            color: Colors.red,
+                            icon: Icon(
+                              isFav ? Icons.favorite : Icons.favorite_outline,
+                              size: 18,
+                              color: Colors.red,
+                            ),
                           ),
                           IconButton(
                             onPressed: () {
@@ -164,17 +171,27 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {
-                              play.next();
-                            },
-                            icon: const Icon(
-                              Icons.skip_next,
-                              size: 40.0,
-                              color: Color.fromARGB(255, 12, 12, 12),
-                            ),
-                          ),
+                              onPressed: () {
+                                play.next();
+                              },
+                              icon: const Icon(
+                                Icons.skip_next,
+                                size: 40.0,
+                                color: Color.fromARGB(255, 12, 12, 12),
+                              )),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              dialogbox(
+                                  context,
+                                  int.parse(playing.playlist.current.metas.id!),
+                                  playing.playlist.currentIndex,
+                                  songmodel);
+                              // dialogBox(
+                              //     context,
+                              //     int.parse(playing.playlist.current.metas.id!),
+                              //     playing.playlist.currentIndex,
+                              //     songmodel);
+                            },
                             icon: const Icon(
                               Icons.playlist_add,
                               size: 40.0,
