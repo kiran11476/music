@@ -43,13 +43,14 @@ class _PlayScreenState extends State<PlayScreen> {
           body: FutureBuilder<List<PlaylistEntity>>(
               future: _audioRoom.queryPlaylists(),
               builder: (context, item) {
-                if (item.data == null)
+                if (item.data == null) {
                   return const Center(
                     child: Text(
                       'Nothing Found',
                       style: TextStyle(color: Colors.white),
                     ),
                   );
+                }
 
                 return ListView.separated(
                     itemBuilder: (ctx, index) => ListTile(
@@ -59,7 +60,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                 Radius.circular(20.0),
                               ),
                             ),
-                            color: Color.fromARGB(255, 27, 27, 31),
+                            color: const Color.fromARGB(255, 27, 27, 31),
                             elevation: 50,
                             icon: const Icon(
                               Icons.more_vert_outlined,

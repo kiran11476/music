@@ -52,8 +52,8 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(20)),
+                      color: Color.fromARGB(186, 255, 255, 255),
+                    ),
                     child: ListTile(
                       onTap: () {
                         plays(playlistSong, index);

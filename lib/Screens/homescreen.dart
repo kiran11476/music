@@ -11,6 +11,7 @@ import 'package:on_audio_room/on_audio_room.dart';
 class HomeScreen extends StatefulWidget {
   int? index;
   List<SongModel> fullsongs = [];
+  List<SongModel>? songModel2;
 
   HomeScreen({Key? key, this.index})
       : super(
@@ -31,9 +32,18 @@ class _HomeScreenState extends State<HomeScreen> {
   final OnAudioRoom _audioRoom = OnAudioRoom();
   final OnAudioQuery _audioQuery = OnAudioQuery();
   List<SongModel> songmodel = [];
+
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
+    List<SongModel> songmodel = [];
+    if (widget.songModel2 == null) {
+      _audioQuery.querySongs().then((value) {
+        songmodel = value;
+      });
+    } else {
+      songmodel = widget.songModel2!;
+    }
     _audioQuery.querySongs().then((value) {
       widget.fullsongs = value;
     });
@@ -182,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Color.fromARGB(255, 12, 12, 12),
                               )),
                           IconButton(
-                            onPressed: () {
+                            onPressed: () async {
                               dialogbox(
                                   context,
                                   int.parse(playing.playlist.current.metas.id!),

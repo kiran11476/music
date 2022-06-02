@@ -28,19 +28,21 @@ void dialogbox(
                           itemCount: item.data!.length,
                           itemBuilder: (ctx, index) => GestureDetector(
                               onTap: () async {
+                                print(songmodel);
                                 _audioRoom.addTo(RoomType.PLAYLIST,
                                     songmodel[inde].getMap.toSongEntity(),
                                     playlistKey: item.data![index].key,
                                     ignoreDuplicate: false);
+                                print('added');
                                 Navigator.pop(ctx);
                               },
                               child: Center(
                                   child: Text(
                                 item.data![index].playlistName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w400),
                               ))),
-                          separatorBuilder: (ctx, index) => SizedBox(
+                          separatorBuilder: (ctx, index) => const SizedBox(
                             height: 18,
                           ),
                         );
@@ -56,7 +58,7 @@ void dialogbox(
                         Navigator.pop(context);
                         createPlaylist(context, setState);
                       },
-                      child: Text('Create new playlist')),
+                      child: const Text('Create new playlist')),
                 ),
               ],
             );
@@ -90,7 +92,7 @@ void createPlaylist(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Cancel')),
+                  child: const Text('Cancel')),
               TextButton(
                   onPressed: () {
                     createNewPlaylist(playlistNameController.text);
@@ -99,7 +101,7 @@ void createPlaylist(
 
                     // dialogBox(context);
                   },
-                  child: Text('Ok'))
+                  child: const Text('Ok'))
             ],
           ));
 }
