@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:project/Screens/favorites.dart';
 
 import 'package:project/Screens/playlist.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Drag extends StatelessWidget {
   const Drag({Key? key}) : super(key: key);
@@ -27,21 +28,12 @@ class Drag extends StatelessWidget {
                     fontWeight: FontWeight.w700),
               ),
             ),
-            height: 200,
+            height: 200.h,
             width: double.infinity,
           ),
-          const SizedBox(
-            height: 10.0,
+          SizedBox(
+            height: 10.h,
           ),
-          // GestureDetector(
-          //     onTap: () {
-          //       Navigator.of(context).push(MaterialPageRoute(
-          //           builder: (context) => const ListScreen()
-          //           )
-          //           );
-          //     },
-          //     child: tileList(Icons.library_music, 'Music  library')
-          //     ),
           GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
@@ -57,7 +49,6 @@ class Drag extends StatelessWidget {
                     builder: (context) => const PlayScreen()));
               },
               child: tileList(Icons.add_photo_alternate, ' playlist')),
-          // tileList(Icons.settings, 'Settings'),
           GestureDetector(
               onTap: () {
                 showAboutDialog(
@@ -69,8 +60,8 @@ class Drag extends StatelessWidget {
               child: tileList(Icons.privacy_tip_outlined, 'About')),
           GestureDetector(
               onTap: () => exit(0), child: tileList(Icons.exit_to_app, 'Exit')),
-          const SizedBox(
-            height: 50.0,
+          SizedBox(
+            height: 50.h,
           ),
           const Text(
             ' Version 2.0.1',
@@ -89,8 +80,8 @@ Widget tileList(
 ) {
   return Column(
     children: [
-      const SizedBox(
-        height: 10.0,
+      SizedBox(
+        height: 10.h,
       ),
       ListTile(
         leading: CircleAvatar(

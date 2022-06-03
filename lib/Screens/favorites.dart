@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavScreen extends StatefulWidget {
   const FavScreen({Key? key}) : super(key: key);
@@ -48,8 +49,8 @@ class _FavScreenState extends State<FavScreen> {
                         leading: QueryArtworkWidget(
                             id: favoriteSongs![index].id,
                             type: ArtworkType.AUDIO,
-                            nullArtworkWidget: const Padding(
-                              padding: EdgeInsets.only(top: 5.0),
+                            nullArtworkWidget: Padding(
+                              padding: EdgeInsets.only(top: 5.h),
                               // Text(favoriteSongs![index].title),
                             )),
                         trailing: const Icon(Icons.more_vert),

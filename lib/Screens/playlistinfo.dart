@@ -4,6 +4,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 import 'package:project/Screens/controller.dart';
 import 'package:project/Screens/homescreen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PlaylistInfo extends StatefulWidget {
   int playlistKey;
@@ -46,12 +47,12 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
               )
             : ListView.separated(
                 separatorBuilder: (context, index) => SizedBox(
-                  height: 1,
+                  height: 1.h,
                 ),
                 itemBuilder: (ctx, index) => Padding(
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(186, 255, 255, 255),
                     ),
                     child: ListTile(
@@ -62,19 +63,19 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                       },
                       title: Text(
                         widget.songs[index].title,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         overflow: TextOverflow.ellipsis,
                       ),
                       subtitle: Text(widget.songs[index].artist!,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               overflow: TextOverflow.ellipsis)),
                       leading: QueryArtworkWidget(
                         id: widget.songs[index].id,
                         type: ArtworkType.AUDIO,
-                        nullArtworkWidget: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: const Icon(
+                        nullArtworkWidget: const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
+                          child: Icon(
                             Icons.music_note,
                             color: Colors.blueAccent,
                           ),

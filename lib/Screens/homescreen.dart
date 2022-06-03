@@ -7,6 +7,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:project/Screens/library.dart';
 import 'package:on_audio_room/on_audio_room.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   int? index;
@@ -91,17 +92,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             type: ArtworkType.AUDIO,
                             artworkBorder: BorderRadius.circular(8),
                           ),
-                          width: 350,
-                          height: 400,
+                          width: 350.h,
+                          height: 400.w,
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
 
-                    const SizedBox(
-                      height: 40.0,
+                    SizedBox(
+                      height: 40.h,
                     ),
                     play.builderRealtimePlayingInfos(
                         builder: (context, RealtimePlayingInfos infos) {
@@ -122,8 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       );
                     }),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
 
                     //     }),
@@ -149,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               isFav
                                   ? Icons.favorite_border_outlined
                                   : Icons.favorite,
-                              size: 30,
+                              size: 30.sp,
                               color: Colors.red,
                             ),
                           ),
@@ -157,9 +158,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {
                               play.previous();
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.skip_previous,
-                              size: 40,
+                              size: 40.sp,
                               color: Color.fromARGB(255, 3, 2, 2),
                             ),
                           ),
@@ -177,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       icon: Icon(isPlaying
                                           ? Icons.pause
                                           : Icons.play_arrow),
-                                      iconSize: 40,
+                                      iconSize: 40.sp,
                                     );
                                   }),
                             ),
@@ -186,9 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               onPressed: () {
                                 play.next();
                               },
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.skip_next,
-                                size: 40.0,
+                                size: 40.sp,
                                 color: Color.fromARGB(255, 12, 12, 12),
                               )),
                           IconButton(
@@ -204,9 +205,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               //     playing.playlist.currentIndex,
                               //     songmodel);
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.playlist_add,
-                              size: 40.0,
+                              size: 40.sp,
                               color: Color.fromARGB(255, 12, 12, 12),
                             ),
                           ),

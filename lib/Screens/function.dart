@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final OnAudioRoom _audioRoom = OnAudioRoom();
 void dialogbox(
@@ -12,8 +13,8 @@ void dialogbox(
               children: [
                 SimpleDialogOption(
                     child: SizedBox(
-                  height: 120,
-                  width: 200,
+                  height: 120.h,
+                  width: 200.w,
                   child: FutureBuilder<List<PlaylistEntity>>(
                       future: _audioRoom.queryPlaylists(),
                       builder: (context, item) {
@@ -39,8 +40,9 @@ void dialogbox(
                               child: Center(
                                   child: Text(
                                 item.data![index].playlistName,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w400),
                               ))),
                           separatorBuilder: (ctx, index) => const SizedBox(
                             height: 18,
@@ -49,7 +51,7 @@ void dialogbox(
                       }),
                 )),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: ElevatedButton(
                       onPressed: () {
                         //           createPlaylistFrom(context, () {

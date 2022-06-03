@@ -5,6 +5,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:project/Screens/drawer.dart';
 import 'package:project/Screens/homescreen.dart';
 import 'package:project/playr.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({Key? key}) : super(key: key);
@@ -57,7 +59,7 @@ class _ListScreenState extends State<ListScreen> {
       color: Colors.black,
       child: Scaffold(
         drawer: const Drag(),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text('Library'),
@@ -80,40 +82,51 @@ class _ListScreenState extends State<ListScreen> {
               }
               return ListView.builder(
                 itemBuilder: (context, index) => ListTile(
-                  onTap: (() {
-                    HomeScreen(
-                      index: index,
-                    );
-                    for (var item in allSongs) {
-                      songs.add(Audio.file(item.uri.toString(),
-                          metas: Metas(id: item.id.toString())));
-                    }
-                    OpenPlayer(allSongs: songs, index: index)
-                        .openAssetPlayer(index: index);
-                  }),
-                  leading: ArtworkType.AUDIO == null
-                      ? const CircleAvatar(
-                          backgroundColor: Colors.green,
+                    onTap: (() {
+                      HomeScreen(
+                        index: index,
+                      );
+                      for (var item in allSongs) {
+                        songs.add(Audio.file(item.uri.toString(),
+                            metas: Metas(id: item.id.toString())));
+                      }
+                      OpenPlayer(allSongs: songs, index: index)
+                          .openAssetPlayer(index: index);
+                    }),
+                    leading: ArtworkType.AUDIO == null
+                        ? const CircleAvatar(
+                            backgroundColor: Colors.green,
+                          )
+                        : QueryArtworkWidget(
+                            id: item.data![index].id, type: ArtworkType.AUDIO),
+                    title: Text(
+                      item.data![index].displayNameWOExt,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 255, 250, 250),
+                          fontWeight: FontWeight.w500),
+                    ),
+                    subtitle: Text(
+                      "${item.data![index].artist}",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    trailing: PopupMenuButton(
+                      icon: const Icon(
+                        Icons.more_vert,
+                        color: Colors.white,
+                      ),
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(
+                          child: Icon(Icons.favorite_border_outlined),
+                          value: 1,
+                        ),
+                        const PopupMenuItem(
+                          child: Icon(Icons.favorite_border_rounded),
+                          value: 2,
                         )
-                      : QueryArtworkWidget(
-                          id: item.data![index].id, type: ArtworkType.AUDIO),
-                  title: Text(
-                    item.data![index].displayNameWOExt,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 255, 250, 250),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  subtitle: Text(
-                    "${item.data![index].artist}",
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  trailing: const Icon(
-                    Icons.more_horiz,
-                    color: Colors.white,
-                  ),
-                ),
+                      ],
+                    )),
                 itemCount: item.data!.length,
               );
             }),
@@ -130,8 +143,8 @@ class _ListScreenState extends State<ListScreen> {
               },
               tileColor: Colors.white,
               leading: QueryArtworkWidget(
-                artworkHeight: 60,
-                artworkWidth: 60,
+                artworkHeight: 60.h,
+                artworkWidth: 60.w,
                 id: int.parse(myAudio.metas.id!),
                 type: ArtworkType.AUDIO,
                 artworkBorder: BorderRadius.circular(8),
@@ -154,10 +167,10 @@ class _ListScreenState extends State<ListScreen> {
                       onPressed: () {
                         play.previous();
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.skip_previous_rounded,
                         color: Color.fromARGB(255, 0, 0, 0),
-                        size: 43,
+                        size: 43.sp,
                       )),
                   // play pause
                   PlayerBuilder.isPlaying(
@@ -166,7 +179,7 @@ class _ListScreenState extends State<ListScreen> {
                         return IconButton(
                           icon: Icon(
                             isPlaying ? Icons.pause_circle : Icons.play_circle,
-                            size: 45,
+                            size: 45.sp,
                           ),
                           onPressed: () {
                             play.playOrPause();
@@ -177,14 +190,14 @@ class _ListScreenState extends State<ListScreen> {
 
                   // next
                   IconButton(
-                      iconSize: 45,
+                      iconSize: 45.sp,
                       onPressed: () {
                         play.next();
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.skip_next_rounded,
                         color: Colors.black,
-                        size: 43,
+                        size: 43.sp,
                       )),
                 ],
               ),
