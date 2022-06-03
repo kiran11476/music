@@ -1,11 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:on_audio_room/on_audio_room.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:project/Screens/drawer.dart';
+import 'package:project/Screens/function.dart';
 import 'package:project/Screens/homescreen.dart';
 import 'package:project/playr.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListScreen extends StatefulWidget {
@@ -21,11 +22,14 @@ List<Audio> songs = [];
 OnAudioQuery audioquery = OnAudioQuery();
 AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 
+final OnAudioRoom _audioRoom = OnAudioRoom();
+
 class _ListScreenState extends State<ListScreen> {
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
+  bool isFav = false;
   @override
   void initState() {
     super.initState();
@@ -59,7 +63,7 @@ class _ListScreenState extends State<ListScreen> {
       color: Colors.black,
       child: Scaffold(
         drawer: const Drag(),
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text('Library'),
@@ -117,15 +121,46 @@ class _ListScreenState extends State<ListScreen> {
                         color: Colors.white,
                       ),
                       itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          child: Icon(Icons.favorite_border_outlined),
+                        PopupMenuItem(
+                          child: Row(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              const Icon(Icons.favorite_border_outlined),
+                              const Text("Add to Favourites"),
+                            ],
+                          ),
                           value: 1,
                         ),
-                        const PopupMenuItem(
-                          child: Icon(Icons.favorite_border_rounded),
+                        PopupMenuItem(
+                          child: Row(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              const Icon(Icons.playlist_add),
+                              const Text('Add to play List'),
+                            ],
+                          ),
                           value: 2,
                         )
                       ],
+                      onSelected: (value) async {
+                        if (value == 1) {
+                          if (isFav != true) {
+                            _audioRoom.addTo(RoomType.FAVORITES,
+                                item.data![index].getMap.toFavoritesEntity(),
+                                ignoreDuplicate: false);
+                          } else {
+                            _audioRoom.deleteFrom(
+                                RoomType.FAVORITES, item.data![index].id);
+                          }
+                        } else if (value == 2) {
+                          // _audioRoom.addTo(RoomType.PLAYLIST,
+                          //     item.data![index].getMap.toSongEntity(),
+                          //     playlistKey: item.data![index].id,
+                          //     ignoreDuplicate: false);
+                          dialogbox(
+                              context, item.data![index].id, index, item.data!);
+                        }
+                      },
                     )),
                 itemCount: item.data!.length,
               );
@@ -169,7 +204,7 @@ class _ListScreenState extends State<ListScreen> {
                       },
                       icon: Icon(
                         Icons.skip_previous_rounded,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                        color: const Color.fromARGB(255, 0, 0, 0),
                         size: 43.sp,
                       )),
                   // play pause

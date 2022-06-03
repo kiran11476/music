@@ -1,5 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:marquee/marquee.dart';
 
 import 'function.dart';
 
@@ -37,8 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height);
-    print(MediaQuery.of(context).size.width);
     List<SongModel> songmodel = [];
     if (widget.songModel2 == null) {
       _audioQuery.querySongs().then((value) {
@@ -62,7 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
           final myAudio = find(songs, playing!.audio.assetAudioPath);
 
           int? key;
-
+          // for (var fav in favorites) {
+          //   if (playing!.playlist.current.metas.title == fav.title) {
+          //     isFav = true;
+          //     key = fav.key;
+          //   }
+          // }
           return Container(
               width: double.infinity,
               height: double.infinity,
@@ -88,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               border:
                                   Border.all(color: Colors.white, width: 4)),
                           child: QueryArtworkWidget(
+                            nullArtworkWidget: const Icon(Icons.music_note),
                             artworkHeight: 60,
                             artworkWidth: 60,
                             id: int.parse(myAudio.metas.id!),
@@ -104,25 +110,43 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     SizedBox(
-                      height: 40.h,
+                      height: 30.0,
+                      child: Marquee(
+                        fadingEdgeEndFraction: 0.2,
+                        fadingEdgeStartFraction: 0.2,
+                        text: myAudio.metas.title!,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 25),
+                        velocity: 20,
+                        startAfter: Duration.zero,
+                        blankSpace: 100,
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20.h,
                     ),
                     play.builderRealtimePlayingInfos(
                         builder: (context, RealtimePlayingInfos infos) {
-                      return ProgressBar(
-                        timeLabelTextStyle: const TextStyle(
-                            color: Color.fromARGB(255, 230, 230, 230)),
-                        timeLabelType: TimeLabelType.remainingTime,
-                        baseBarColor: const Color.fromARGB(255, 240, 235, 235),
-                        progressBarColor:
-                            const Color.fromARGB(122, 26, 90, 154),
-                        thumbColor: Colors.blue,
-                        barHeight: 4,
-                        thumbRadius: 8,
-                        progress: infos.currentPosition,
-                        total: infos.duration,
-                        onSeek: (slide) {
-                          play.seek(slide);
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: ProgressBar(
+                          timeLabelTextStyle: const TextStyle(
+                              color: Color.fromARGB(255, 230, 230, 230)),
+                          timeLabelType: TimeLabelType.remainingTime,
+                          baseBarColor:
+                              const Color.fromARGB(255, 240, 235, 235),
+                          progressBarColor:
+                              const Color.fromARGB(122, 26, 90, 154),
+                          thumbColor: Colors.blue,
+                          barHeight: 4,
+                          thumbRadius: 8,
+                          progress: infos.currentPosition,
+                          total: infos.duration,
+                          onSeek: (slide) {
+                            play.seek(slide);
+                          },
+                        ),
                       );
                     }),
                     SizedBox(
@@ -138,21 +162,41 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           IconButton(
                             onPressed: () async {
-                              if (isFav != true) {
+                              if (isFav == false) {
                                 _audioRoom.addTo(
                                     RoomType.FAVORITES,
                                     widget.fullsongs[playing.index].getMap
                                         .toFavoritesEntity(),
                                     ignoreDuplicate: false);
+
+                                Fluttertoast.showToast(
+                                    msg: "Added to favorites",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.SNACKBAR,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 11, 11, 12),
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
                               } else {
                                 _audioRoom.deleteFrom(RoomType.FAVORITES, key!);
+                                Fluttertoast.showToast(
+                                    msg: "removed from favorites",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.SNACKBAR,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 187, 27, 27),
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
                               }
+                              setState(() {});
                             },
                             icon: Icon(
                               isFav
-                                  ? Icons.favorite_border_outlined
+                                  ? Icons.favorite_outline_outlined
                                   : Icons.favorite,
-                              size: 30.sp,
+                              size: 30,
                               color: Colors.red,
                             ),
                           ),

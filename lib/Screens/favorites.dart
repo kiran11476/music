@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,23 +12,17 @@ class FavScreen extends StatefulWidget {
 }
 
 class _FavScreenState extends State<FavScreen> {
+  int? key;
+
   @override
   Widget build(BuildContext context) {
     final OnAudioRoom _audioroom = OnAudioRoom();
     List<FavoritesEntity>? favoriteSongs = [];
+    final OnAudioRoom _audioRoom = OnAudioRoom();
     return Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color.fromARGB(255, 53, 85, 53),
-              Color.fromARGB(255, 75, 71, 71)
-            ],
-          ),
-        ),
+        decoration: const BoxDecoration(color: Color.fromARGB(255, 3, 3, 3)),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -37,7 +32,11 @@ class _FavScreenState extends State<FavScreen> {
             body: FutureBuilder(
               builder: (context, item) {
                 if (item.data == null) {
-                  return const Center(child: Text('no songs'));
+                  return const Center(
+                      child: Text(
+                    'no songs',
+                    style: TextStyle(color: Colors.white),
+                  ));
                 }
 
                 favoriteSongs = item.data as List<FavoritesEntity>?;
@@ -53,7 +52,10 @@ class _FavScreenState extends State<FavScreen> {
                               padding: EdgeInsets.only(top: 5.h),
                               // Text(favoriteSongs![index].title),
                             )),
-                        trailing: const Icon(Icons.more_vert),
+                        // trailing: const Icon(
+                        //   Icons.more_vert,
+                        //   color: Colors.white,
+                        // ),
                         title: Text(
                           favoriteSongs![index].title,
                           style: const TextStyle(color: Colors.white),
@@ -64,6 +66,83 @@ class _FavScreenState extends State<FavScreen> {
                           style: const TextStyle(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
+                        trailing: PopupMenuButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              const Radius.circular(20.0).r,
+                            ),
+                          ),
+                          color: Colors.blue,
+                          elevation: 30.r,
+                          icon: const Icon(Icons
+                              .more_vert_outlined), //don't specify icon if you want 3 dot menu
+                          // color: Colors.blue,
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: 0,
+                              child: Text(
+                                "Remove from Favorites",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                          onSelected: (item) => {
+                            if (item == 0)
+                              {
+                                setState(() {
+                                  _audioRoom.deleteFrom(RoomType.FAVORITES,
+                                      favoriteSongs![index].key);
+                                  Fluttertoast.showToast(
+                                      msg: "Deleted from favorites",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.SNACKBAR,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                })
+                              }
+                          },
+                        ),
+                        // trailing: PopupMenuButton(
+                        //   shape: RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.all(
+                        //       const Radius.circular(20.0).r,
+                        //     ),
+                        //   ),
+                        //   color: Color.fromARGB(255, 234, 237, 240),
+                        //   elevation: 30.r,
+                        //   icon: const Icon(Icons
+                        //       .more_vert_outlined), //don't specify icon if you want 3 dot menu
+                        //   // color: Colors.blue,
+                        //   itemBuilder: (context) => [
+                        //     const PopupMenuItem(
+                        //       value: 0,
+                        //       child: Text(
+                        //         "Remove from Favorites",
+                        //         style: TextStyle(
+                        //             color: Color.fromARGB(255, 8, 7, 7)),
+                        //       ),
+                        //     ),
+                        //   ],
+                        //   onSelected: (item) => {
+                        //     if (item == 0)
+                        //       {
+                        //         setState(() {
+                        //           _audioRoom.deleteFrom(
+                        //               RoomType.FAVORITES, key!);
+                        //           Fluttertoast.showToast(
+                        //               msg: "Deleted from favorites",
+                        //               toastLength: Toast.LENGTH_SHORT,
+                        //               gravity: ToastGravity.SNACKBAR,
+                        //               timeInSecForIosWeb: 1,
+                        //               backgroundColor: Colors.red,
+                        //               textColor: Colors.white,
+                        //               fontSize: 16.0);
+                        //         })
+                        //       }
+                        //   },
+                        // ),
                       );
                     });
               },

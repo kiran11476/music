@@ -36,7 +36,6 @@ dependencies:
   flutter_screenutil: ^5.5.3+2
   fluttertoast: ^8.0.9
   google_fonts: ^2.3.2
-  just_audio: ^0.9.21
   marquee: ^2.2.1
   on_audio_query: ^2.6.1
   on_audio_room: ^2.2.1+1
