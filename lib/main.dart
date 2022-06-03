@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
 import 'package:project/Screens/library.dart';
@@ -13,9 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ListScreen(),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(393, 782),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: ListScreen(),
+          );
+        });
   }
 }

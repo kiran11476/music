@@ -37,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.height);
+    print(MediaQuery.of(context).size.width);
     List<SongModel> songmodel = [];
     if (widget.songModel2 == null) {
       _audioQuery.querySongs().then((value) {
