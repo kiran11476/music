@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:project/Screens/drawer.dart';
 import 'package:project/Screens/function.dart';
 import 'package:project/Screens/homescreen.dart';
+import 'package:project/Screens/searchbar.dart';
 import 'package:project/playr.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -67,6 +68,13 @@ class _ListScreenState extends State<ListScreen> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text('Library'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: MySearch());
+                },
+                icon: const Icon(Icons.search))
+          ],
         ),
         body: FutureBuilder<List<SongModel>>(
             future: audioquery.querySongs(
