@@ -34,7 +34,7 @@ class _FavScreenState extends State<FavScreen> {
                 if (item.data == null) {
                   return const Center(
                       child: Text(
-                    'no songs',
+                    'No songs',
                     style: TextStyle(color: Colors.white),
                   ));
                 }
@@ -50,19 +50,14 @@ class _FavScreenState extends State<FavScreen> {
                             type: ArtworkType.AUDIO,
                             nullArtworkWidget: Padding(
                               padding: EdgeInsets.only(top: 5.h),
-                              // Text(favoriteSongs![index].title),
                             )),
-                        // trailing: const Icon(
-                        //   Icons.more_vert,
-                        //   color: Colors.white,
-                        // ),
                         title: Text(
                           favoriteSongs![index].title,
                           style: const TextStyle(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
                         subtitle: Text(
-                          favoriteSongs![index].lastData,
+                          favoriteSongs![index].album.toString(),
                           style: const TextStyle(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -72,17 +67,20 @@ class _FavScreenState extends State<FavScreen> {
                               const Radius.circular(20.0).r,
                             ),
                           ),
-                          color: Colors.blue,
+                          color: Color.fromARGB(255, 233, 235, 237),
                           elevation: 30.r,
-                          icon: const Icon(Icons
-                              .more_vert_outlined), //don't specify icon if you want 3 dot menu
+                          icon: const Icon(
+                            Icons.more_vert_outlined,
+                            color: Color.fromARGB(255, 246, 246, 246),
+                          ), //don't specify icon if you want 3 dot menu
                           // color: Colors.blue,
                           itemBuilder: (context) => [
                             const PopupMenuItem(
                               value: 0,
                               child: Text(
                                 "Remove from Favorites",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
                               ),
                             ),
                           ],
@@ -97,52 +95,14 @@ class _FavScreenState extends State<FavScreen> {
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.SNACKBAR,
                                       timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.red,
+                                      backgroundColor:
+                                          Color.fromARGB(255, 174, 27, 16),
                                       textColor: Colors.white,
                                       fontSize: 16.0);
                                 })
                               }
                           },
                         ),
-                        // trailing: PopupMenuButton(
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.all(
-                        //       const Radius.circular(20.0).r,
-                        //     ),
-                        //   ),
-                        //   color: Color.fromARGB(255, 234, 237, 240),
-                        //   elevation: 30.r,
-                        //   icon: const Icon(Icons
-                        //       .more_vert_outlined), //don't specify icon if you want 3 dot menu
-                        //   // color: Colors.blue,
-                        //   itemBuilder: (context) => [
-                        //     const PopupMenuItem(
-                        //       value: 0,
-                        //       child: Text(
-                        //         "Remove from Favorites",
-                        //         style: TextStyle(
-                        //             color: Color.fromARGB(255, 8, 7, 7)),
-                        //       ),
-                        //     ),
-                        //   ],
-                        //   onSelected: (item) => {
-                        //     if (item == 0)
-                        //       {
-                        //         setState(() {
-                        //           _audioRoom.deleteFrom(
-                        //               RoomType.FAVORITES, key!);
-                        //           Fluttertoast.showToast(
-                        //               msg: "Deleted from favorites",
-                        //               toastLength: Toast.LENGTH_SHORT,
-                        //               gravity: ToastGravity.SNACKBAR,
-                        //               timeInSecForIosWeb: 1,
-                        //               backgroundColor: Colors.red,
-                        //               textColor: Colors.white,
-                        //               fontSize: 16.0);
-                        //         })
-                        //       }
-                        //   },
-                        // ),
                       );
                     });
               },
