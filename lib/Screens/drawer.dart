@@ -13,7 +13,8 @@ class Drag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color.fromARGB(96, 0, 0, 0),
+      width: 250,
+      backgroundColor: const Color.fromARGB(95, 107, 105, 105),
       child: Column(
         children: [
           Container(
@@ -63,11 +64,11 @@ class Drag extends StatelessWidget {
           SizedBox(
             height: 50.h,
           ),
-          const Text(
-            ' Version 2.0.1',
-            textAlign: TextAlign.justify,
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
+          // const Text(
+          //   ' Version 2.0.1',
+          //   textAlign: TextAlign.end,
+          //   style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+          // ),
         ],
       ),
     );

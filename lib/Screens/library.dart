@@ -99,7 +99,7 @@ class _ListScreenState extends State<ListScreen> {
                     }),
                     leading: ArtworkType.AUDIO == null
                         ? const CircleAvatar(
-                            backgroundColor: Colors.green,
+                            backgroundColor: Color.fromARGB(255, 240, 245, 241),
                           )
                         : QueryArtworkWidget(
                             id: item.data![index].id, type: ArtworkType.AUDIO),
@@ -125,7 +125,10 @@ class _ListScreenState extends State<ListScreen> {
                           child: Row(
                             // ignore: prefer_const_literals_to_create_immutables
                             children: [
-                              const Icon(Icons.favorite_border_outlined),
+                              const Icon(
+                                Icons.favorite_border_outlined,
+                                color: Colors.red,
+                              ),
                               const Text("Add to Favourites"),
                             ],
                           ),
@@ -135,7 +138,10 @@ class _ListScreenState extends State<ListScreen> {
                           child: Row(
                             // ignore: prefer_const_literals_to_create_immutables
                             children: [
-                              const Icon(Icons.playlist_add),
+                              const Icon(
+                                Icons.playlist_add,
+                                color: Colors.black,
+                              ),
                               const Text('Add to play List'),
                             ],
                           ),
