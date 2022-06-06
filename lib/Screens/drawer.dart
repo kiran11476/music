@@ -6,10 +6,16 @@ import 'package:project/Screens/favorites.dart';
 
 import 'package:project/Screens/playlist.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project/Screens/privacypolicy.dart';
 
-class Drag extends StatelessWidget {
+class Drag extends StatefulWidget {
   const Drag({Key? key}) : super(key: key);
 
+  @override
+  State<Drag> createState() => _DragState();
+}
+
+class _DragState extends State<Drag> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -60,6 +66,14 @@ class Drag extends StatelessWidget {
               },
               child: tileList(Icons.privacy_tip_outlined, 'About')),
           GestureDetector(
+              onTap: () {
+                showAlertDialog(context);
+              },
+              child: tileList(
+                Icons.privacy_tip,
+                'Privacy policy',
+              )),
+          GestureDetector(
               onTap: () => exit(0), child: tileList(Icons.exit_to_app, 'Exit')),
           SizedBox(
             height: 50.h,
@@ -97,5 +111,46 @@ Widget tileList(
         ),
       ),
     ],
+  );
+}
+
+showAlertDialog(BuildContext context) {
+  // Create button
+  Widget okButton = ElevatedButton(
+    style: ButtonStyle(
+      elevation: MaterialStateProperty.all(5.r),
+    ),
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Privacy policy"),
+    content: SizedBox(
+      height: 300,
+      width: 200,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(policy),
+          ],
+        ),
+      ),
+    ),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
   );
 }

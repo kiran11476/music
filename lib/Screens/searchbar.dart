@@ -139,9 +139,9 @@ class MySearch extends SearchDelegate {
                           HomeScreen(
                             index: index,
                           );
-                          for (var item in allSongs) {
-                            songs.add(Audio.file(item.uri.toString(),
-                                metas: Metas(id: item.id.toString())));
+                          for (var item in searchSongItems) {
+                            songs.add(Audio.file(item.toString(),
+                                metas: Metas(id: item.toString())));
                           }
                           OpenPlayer(allSongs: songs, index: index)
                               .openAssetPlayer(index: index);
