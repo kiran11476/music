@@ -67,7 +67,7 @@ class _FavScreenState extends State<FavScreen> {
                               const Radius.circular(20.0).r,
                             ),
                           ),
-                          color: Color.fromARGB(255, 233, 235, 237),
+                          color: const Color.fromARGB(255, 233, 235, 237),
                           elevation: 30.r,
                           icon: const Icon(
                             Icons.more_vert_outlined,
@@ -95,8 +95,8 @@ class _FavScreenState extends State<FavScreen> {
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.SNACKBAR,
                                       timeInSecForIosWeb: 1,
-                                      backgroundColor:
-                                          Color.fromARGB(255, 174, 27, 16),
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 174, 27, 16),
                                       textColor: Colors.white,
                                       fontSize: 16.0);
                                 })
