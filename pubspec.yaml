@@ -35,7 +35,8 @@ dependencies:
     sdk: flutter
   flutter_screenutil: ^5.5.3+2
   fluttertoast: ^8.0.9
-  google_fonts: ^2.3.2
+  get: ^4.6.5
+  getxbottombar: ^0.0.1
   marquee: ^2.2.1
   on_audio_query: ^2.6.1
   on_audio_room: ^2.2.1+1
