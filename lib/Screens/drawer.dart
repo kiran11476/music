@@ -42,14 +42,18 @@ class _DragState extends State<Drag> {
             height: 10.h,
           ),
           GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const FavScreen()));
-              },
-              child: tileList(
-                Icons.favorite,
-                'Favorites',
-              )),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const FavScreen(),
+                ),
+              );
+            },
+            child: tileList(
+              Icons.favorite,
+              'Favorites',
+            ),
+          ),
           GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
