@@ -48,6 +48,7 @@ import 'package:project/playr.dart';
 List<SongModel> allSongs = [];
 
 class MySearch extends SearchDelegate {
+  Req req = Req.instance;
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -71,7 +72,7 @@ class MySearch extends SearchDelegate {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
       textTheme: const TextTheme(displayMedium: TextStyle(color: Colors.white)),
-      hintColor: Colors.white,
+      hintColor: Colors.red,
       appBarTheme: const AppBarTheme(
         color: Colors.black,
       ),
@@ -108,8 +109,8 @@ class MySearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     final searchSongItems = query.isEmpty
-        ? songs
-        : songs
+        ? req.songs
+        : req.songs
             .where((element) => element.metas.artist!
                 .toLowerCase()
                 .startsWith(query.toLowerCase().toString()))
@@ -140,10 +141,10 @@ class MySearch extends SearchDelegate {
                             index: index,
                           );
                           for (var item in searchSongItems) {
-                            songs.add(Audio.file(item.toString(),
+                            req.songs.add(Audio.file(item.toString(),
                                 metas: Metas(id: item.toString())));
                           }
-                          OpenPlayer(allSongs: songs, index: index)
+                          OpenPlayer(allSongs: req.songs, index: index)
                               .openAssetPlayer(index: index);
                         }),
                         leading: QueryArtworkWidget(

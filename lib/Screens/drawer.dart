@@ -1,21 +1,14 @@
 import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
-import 'package:project/Screens/favorites.dart';
-
-import 'package:project/Screens/playlist.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project/Screens/favorites.dart';
+import 'package:project/Screens/playlist.dart';
 import 'package:project/Screens/privacypolicy.dart';
 
-class Drag extends StatefulWidget {
+class Drag extends StatelessWidget {
   const Drag({Key? key}) : super(key: key);
 
-  @override
-  State<Drag> createState() => _DragState();
-}
-
-class _DragState extends State<Drag> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -43,32 +36,38 @@ class _DragState extends State<Drag> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const FavScreen(),
-                ),
-              );
+              Get.to(() => FavScreen());
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => const FavScreen(),
+              //   ),
+              // );
             },
             child: tileList(
               Icons.favorite,
               'Favorites',
             ),
           ),
+
           GestureDetector(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const PlayScreen()));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PlayScreen(),
+                  ),
+                );
               },
               child: tileList(Icons.add_photo_alternate, ' playlist')),
           GestureDetector(
-              onTap: () {
-                showAboutDialog(
-                    context: context,
-                    applicationName: 'Music',
-                    applicationIcon: const Icon(Icons.music_note_outlined),
-                    applicationVersion: "Version1.0.20.");
-              },
-              child: tileList(Icons.privacy_tip_outlined, 'About')),
+            onTap: () {
+              showAboutDialog(
+                  context: context,
+                  applicationName: 'Music',
+                  applicationIcon: const Icon(Icons.music_note_outlined),
+                  applicationVersion: "Version1.0.20.");
+            },
+            child: tileList(Icons.privacy_tip_outlined, 'About'),
+          ),
           GestureDetector(
               onTap: () {
                 showAlertDialog(context);

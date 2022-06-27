@@ -4,15 +4,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FavScreen extends StatefulWidget {
-  const FavScreen({Key? key}) : super(key: key);
-
-  @override
-  State<FavScreen> createState() => _FavScreenState();
-}
-
-class _FavScreenState extends State<FavScreen> {
-  int? key;
+class FavScreen extends StatelessWidget {
+  int? mainkey;
+  FavScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,19 +88,19 @@ class _FavScreenState extends State<FavScreen> {
                               onSelected: (item) => {
                                 if (item == 0)
                                   {
-                                    setState(() {
-                                      _audioRoom.deleteFrom(RoomType.FAVORITES,
-                                          favoriteSongs![index].key);
-                                      Fluttertoast.showToast(
-                                          msg: "Deleted from favorites",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.SNACKBAR,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 174, 27, 16),
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    })
+                                    // setState(() {
+                                    //   _audioRoom.deleteFrom(RoomType.FAVORITES,
+                                    //       favoriteSongs![index].key);
+                                    //   Fluttertoast.showToast(
+                                    //       msg: "Deleted from favorites",
+                                    //       toastLength: Toast.LENGTH_SHORT,
+                                    //       gravity: ToastGravity.SNACKBAR,
+                                    //       timeInSecForIosWeb: 1,
+                                    //       backgroundColor: const Color.fromARGB(
+                                    //           255, 174, 27, 16),
+                                    //       textColor: Colors.white,
+                                    //       fontSize: 16.0);
+                                    // })
                                   }
                               },
                             ),

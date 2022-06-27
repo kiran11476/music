@@ -1,5 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,51 +12,33 @@ import 'package:project/Screens/searchbar.dart';
 import 'package:project/playr.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ListScreen extends StatefulWidget {
-  const ListScreen({Key? key}) : super(key: key);
+class ListScreen extends StatelessWidget {
+  ListScreen({Key? key}) : super(key: key);
 
-  @override
-  State<ListScreen> createState() => _ListScreenState();
-}
+  List<SongModel> allSongs = [];
 
-List<SongModel> fetchedSong = [];
-List<SongModel> allSongs = [];
-List<Audio> songs = [];
-OnAudioQuery audioquery = OnAudioQuery();
-AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
+  Req req = Req.instance;
 
-final OnAudioRoom _audioRoom = OnAudioRoom();
+  OnAudioQuery audioquery = OnAudioQuery();
+  AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 
-class _ListScreenState extends State<ListScreen> {
+  final OnAudioRoom _audioRoom = OnAudioRoom();
+
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
   bool isFav = false;
-  @override
-  void initState() {
-    super.initState();
-    requestpermission();
-  }
 
-  void requestpermission() async {
-    Permission.storage.request();
-    OnAudioQuery play = OnAudioQuery();
-    fetchedSong = await play.querySongs();
-
-    for (var item in fetchedSong) {
-      songs.add(
-        Audio.file(
-          item.uri.toString(),
-          metas: Metas(
-            id: item.id.toString(),
-            title: item.title,
-            artist: item.artist,
-          ),
-        ),
-      );
-    }
-  }
+// // void initState() {
+// //   super.initState();
+// //   requestpermission();
+// // }
+// @override
+// void onInit() {
+//   super.onInit();
+//   requestpermission();
+// }
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +83,10 @@ class _ListScreenState extends State<ListScreen> {
                         index: index,
                       );
                       for (var item in allSongs) {
-                        songs.add(Audio.file(item.uri.toString(),
+                        req.songs.add(Audio.file(item.uri.toString(),
                             metas: Metas(id: item.id.toString())));
                       }
-                      OpenPlayer(allSongs: songs, index: index)
+                      OpenPlayer(allSongs: req.songs, index: index)
                           .openAssetPlayer(index: index);
                     }),
                     leading: ArtworkType.AUDIO == null
@@ -181,7 +165,7 @@ class _ListScreenState extends State<ListScreen> {
             }),
         bottomSheet: play.builderCurrent(
             builder: (BuildContext context, Playing? playing) {
-          final myAudio = find(songs, playing!.audio.assetAudioPath);
+          final myAudio = find(req.songs, playing!.audio.assetAudioPath);
           return Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
             child: ListTile(
@@ -255,5 +239,37 @@ class _ListScreenState extends State<ListScreen> {
         }),
       ),
     );
+  }
+}
+
+class Req extends GetxController {
+  static Req instance = Get.find();
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    requestpermission();
+  }
+
+  List<Audio> songs = [];
+
+  List<SongModel> fetchedSong = [];
+  void requestpermission() async {
+    Permission.storage.request();
+    OnAudioQuery play = OnAudioQuery();
+    fetchedSong = await play.querySongs();
+
+    for (var item in fetchedSong) {
+      songs.add(
+        Audio.file(
+          item.uri.toString(),
+          metas: Metas(
+            id: item.id.toString(),
+            title: item.title,
+            artist: item.artist,
+          ),
+        ),
+      );
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
 
 import 'function.dart';
@@ -11,7 +12,10 @@ import 'package:project/Screens/library.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeScreen extends StatefulWidget {
+AssetsAudioPlayer play = AssetsAudioPlayer.withId('0');
+
+class HomeScreen extends StatelessWidget {
+  Req req = Req.instance;
   int? index;
   List<SongModel> fullsongs = [];
   List<SongModel>? songModel2;
@@ -20,14 +24,6 @@ class HomeScreen extends StatefulWidget {
       : super(
           key: key,
         );
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-AssetsAudioPlayer play = AssetsAudioPlayer.withId('0');
-
-class _HomeScreenState extends State<HomeScreen> {
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
@@ -37,18 +33,19 @@ class _HomeScreenState extends State<HomeScreen> {
   List<SongModel> songmodel = [];
 
   bool isFav = false;
+
   @override
   Widget build(BuildContext context) {
     List<SongModel> songmodel = [];
-    if (widget.songModel2 == null) {
+    if (songModel2 == null) {
       _audioQuery.querySongs().then((value) {
         songmodel = value;
       });
     } else {
-      songmodel = widget.songModel2!;
+      songmodel = songModel2!;
     }
     _audioQuery.querySongs().then((value) {
-      widget.fullsongs = value;
+      fullsongs = value;
     });
 
     return Scaffold(
@@ -59,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: play.builderCurrent(
             builder: (BuildContext context, Playing? playing) {
-          final myAudio = find(songs, playing!.audio.assetAudioPath);
+          final myAudio = find(req.songs, playing!.audio.assetAudioPath);
 
           int? key;
           // for (var fav in favorites) {
@@ -165,7 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (isFav == false) {
                                 _audioRoom.addTo(
                                     RoomType.FAVORITES,
-                                    widget.fullsongs[playing.index].getMap
+                                    fullsongs[playing.index]
+                                        .getMap
                                         .toFavoritesEntity(),
                                     ignoreDuplicate: false);
 
@@ -190,7 +188,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     textColor: Colors.white,
                                     fontSize: 16.0);
                               }
-                              setState(() {});
                             },
                             icon: Icon(
                               isFav
