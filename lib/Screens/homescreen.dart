@@ -1,7 +1,8 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
+
 import 'package:marquee/marquee.dart';
 
 import 'function.dart';
@@ -49,8 +50,12 @@ class HomeScreen extends StatelessWidget {
     });
 
     return Scaffold(
+        backgroundColor: Color.fromARGB(255, 1, 4, 17),
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(213, 0, 0, 0),
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Color.fromARGB(145, 0, 0, 0),
+          ),
+          backgroundColor: const Color.fromARGB(176, 0, 0, 0),
           title: const Text('Music Player'),
           centerTitle: true,
         ),
@@ -71,10 +76,10 @@ class HomeScreen extends StatelessWidget {
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
-                  end: Alignment.bottomCenter,
                   colors: [
-                    Color.fromARGB(177, 0, 0, 0),
-                    Color.fromARGB(255, 0, 0, 0)
+                    // Color.fromARGB(255, 26, 43, 85),
+                    Color.fromARGB(255, 0, 0, 1),
+                    Color.fromARGB(255, 5, 13, 35),
                   ],
                 ),
               ),
@@ -87,17 +92,22 @@ class HomeScreen extends StatelessWidget {
                       child: Center(
                         child: Container(
                           decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: Colors.white, width: 4)),
+                              border: Border.all(
+                                  color: const Color.fromARGB(255, 17, 16, 16),
+                                  width: 4)),
                           child: QueryArtworkWidget(
-                            nullArtworkWidget: const Icon(Icons.music_note),
+                            nullArtworkWidget: const Icon(
+                              Icons.music_note_outlined,
+                              size: 80,
+                              color: Color.fromARGB(166, 255, 255, 255),
+                            ),
                             artworkHeight: 60,
                             artworkWidth: 60,
                             id: int.parse(myAudio.metas.id!),
                             type: ArtworkType.AUDIO,
                             artworkBorder: BorderRadius.circular(8),
                           ),
-                          width: 350.h,
+                          width: 250.h,
                           height: 400.w,
                         ),
                       ),
@@ -204,7 +214,7 @@ class HomeScreen extends StatelessWidget {
                             icon: Icon(
                               Icons.skip_previous,
                               size: 40.sp,
-                              color: Color.fromARGB(255, 3, 2, 2),
+                              color: const Color.fromARGB(255, 3, 2, 2),
                             ),
                           ),
                           Padding(
@@ -251,7 +261,7 @@ class HomeScreen extends StatelessWidget {
                             icon: Icon(
                               Icons.playlist_add,
                               size: 40.sp,
-                              color: Color.fromARGB(255, 12, 12, 12),
+                              color: const Color.fromARGB(255, 12, 12, 12),
                             ),
                           ),
                         ],

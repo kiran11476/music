@@ -246,7 +246,6 @@ class Req extends GetxController {
   static Req instance = Get.find();
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     requestpermission();
   }

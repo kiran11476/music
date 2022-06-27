@@ -14,4 +14,10 @@ class RenamePlayListcontoller extends GetxController {
     _audioRoom.deletePlaylist(item.data![index].key);
     update();
   }
+
+  void playListDelete(playlistKey, songs, index) {
+    _audioRoom.deleteFrom(RoomType.PLAYLIST, songs[index].id,
+        playlistKey: playlistKey);
+    update();
+  }
 }

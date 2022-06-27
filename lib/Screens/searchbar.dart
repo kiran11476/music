@@ -1,42 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:project/Screens/library.dart';
-
-// class MusicSearch extends SearchDelegate<String> {
-//   @override
-//   List<Widget>? buildActions(BuildContext context) {
-//     return [IconButton(onPressed: () {}, icon: const Icon(Icons.clear))];
-//   }
-
-//   @override
-//   Widget buildLeading(BuildContext context) => IconButton(
-//       onPressed: () {
-//         close(context, '');
-//       },
-//       icon: Icon(Icons.arrow_back));
-
-//   @override
-//   Widget buildResults(BuildContext context) {
-//     return Center(
-//       child: Text(
-//         query,
-//         style: TextStyle(color: Colors.white),
-//       ),
-//     );
-//   }
-
-//   @override
-//   Widget buildSuggestions(BuildContext context) {
-//     final searchedItem = query.isEmpty
-//         ? songs
-//         : songs
-//             .where((element) => element.metas.title!
-//                 .toLowerCase()
-//                 .startsWith(query.toLowerCase().toString()))
-//             .toList();
-//     return Container();
-//   }
-// }
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +33,7 @@ class MySearch extends SearchDelegate {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
       textTheme: const TextTheme(displayMedium: TextStyle(color: Colors.white)),
-      hintColor: Colors.red,
+      hintColor: Color.fromARGB(255, 221, 221, 221),
       appBarTheme: const AppBarTheme(
         color: Colors.black,
       ),
